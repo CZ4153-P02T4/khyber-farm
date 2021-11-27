@@ -34,12 +34,12 @@ describe("KhyberFarm Contract", () => {
 
         [owner, alice, bob, carol, dave, eve] = await ethers.getSigners();
 
-        mockKNC = await MockERC20.deploy("MockKNC", "mKNC")
+        mockKNC = await MockERC20.deploy("mockKNC", "mKNC")
         khyberToken =  await KhyberToken.deploy()
         khrystal = await KhyberCrystal.deploy()
 
         /*//////////////////////
-        // KNC Transfers      //
+        // Knc Transfers      //
         //////////////////////*/
 
         await Promise.all([
@@ -74,7 +74,7 @@ describe("KhyberFarm Contract", () => {
             expect(await khyberFarm.name())
                 .to.eq("Khyber Farm")
             expect(await mockKNC.name())
-                .to.eq("MockKNC")
+                .to.eq("mockKNC")
             expect(await khyberToken.name())
                 .to.eq("KhyberToken")
         })
@@ -158,6 +158,9 @@ describe("KhyberFarm Contract", () => {
 
         it("should transfer ownership", async() => {
             let minter = await khyberToken.MINTER_ROLE()
+
+            //await khyberToken._transferOwnership(khyberFarm.address)
+            //let minter = khyberToken.MINTER_ROLE()
             await khyberToken.grantRole(minter, khyberFarm.address)
 
             expect(await khyberToken.hasRole(minter, khyberFarm.address))
@@ -183,31 +186,33 @@ describe("Start from deployment for time increase", () => {
         const KhyberToken = await ethers.getContractFactory("KhyberToken");
         const KhyberCrystal = await ethers.getContractFactory("KhyberCrystal");
         [alice] = await ethers.getSigners();
-        mockKNC = await MockERC20.deploy("MockDai", "mKNC")
+        mockKNC = await MockERC20.deploy("MockKNC", "mKNC")
         khyberToken =  await KhyberToken.deploy()
         khrystal = await KhyberCrystal.deploy()
         const kncAmount: BigNumber = ethers.utils.parseEther("25000");
         const nftPrice: BigNumber = ethers.utils.parseEther("1")
-        await mockKNC.mint(alice.address, kncAmount)
+        await mockKNC.mint(alice.address, kncAmount),
         khyberFarm = await KhyberFarm.deploy(
             mockKNC.address, 
             khyberToken.address, 
             khrystal.address, 
             nftPrice
             )
-            let minter = await khyberToken.MINTER_ROLE()
-            await khyberToken.grantRole(minter, khyberFarm.address)
-    
-            let jackMinter = await khrystal.MINTER_ROLE()
-            await khrystal.grantRole(jackMinter, khyberFarm.address)
-    
-            let toTransfer = ethers.utils.parseEther("10")
-            await mockKNC.approve(khyberFarm.address, toTransfer)
-            await khyberFarm.stake(toTransfer)
+        //await khyberToken._transferOwnership(khyberFarm.address)
+        let minter = await khyberToken.MINTER_ROLE()
+        await khyberToken.grantRole(minter, khyberFarm.address)
+
+        let khrystalMinter = await khrystal.MINTER_ROLE()
+        await khrystal.grantRole(khrystalMinter, khyberFarm.address)
     })
 
     describe("Yield", async() => {
         it("should return correct yield time", async() => {
+            // Setup
+            let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+
             // Start time
             let timeStart = await khyberFarm.startTime(alice.address)
             expect(Number(timeStart))
@@ -221,6 +226,11 @@ describe("Start from deployment for time increase", () => {
         })
 
         it("should mint correct token amount in total supply and user", async() => { 
+            // Setup
+            let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+
             await time.increase(86400)
 
             let _time = await khyberFarm.calculateYieldTime(alice.address)
@@ -249,6 +259,12 @@ describe("Start from deployment for time increase", () => {
         })
 
         it("should update yield balance when unstaked", async() => {
+            let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+
+            let staked = await khyberFarm.stakingBalance(alice.address)
+
             await time.increase(86400)
             await khyberFarm.unstake(ethers.utils.parseEther("5"))
 
@@ -260,9 +276,13 @@ describe("Start from deployment for time increase", () => {
 
     describe("Multiple Stakes", async() => {
         it("should update yield balance after multiple stakes", async() => {
+            let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+
             time.increase(8640)
 
-            let toTransfer = ethers.utils.parseEther("10")
+            toTransfer = ethers.utils.parseEther("10")
             await mockKNC.approve(khyberFarm.address, toTransfer)
             await khyberFarm.stake(toTransfer)
 
@@ -271,6 +291,32 @@ describe("Start from deployment for time increase", () => {
 
             expect(Number.parseFloat(formatRes).toFixed(3))
                 .to.eq("1.000")
+        })
+    })
+
+    describe("NFT", async() => {
+        it("should mint an nft", async() => {
+            let toTransfer = ethers.utils.parseEther("100")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+
+            time.increase(1000000)
+
+            await khyberFarm.withdrawYield()
+
+            toTransfer = ethers.utils.parseEther("1")
+            await khyberToken.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.mintNFT(alice.address, "www")
+
+            await khyberToken.approve(khyberFarm.address, toTransfer)
+            expect(await khyberFarm.mintNFT(alice.address, "www"))
+                .to.emit(khyberFarm, "MintNFT")
+                .withArgs(alice.address, 1)
+
+            await khyberToken.approve(khyberFarm.address, toTransfer)
+            expect(await khyberFarm.mintNFT(alice.address, "www"))
+                .to.emit(khyberFarm, "MintNFT")
+                .withArgs(alice.address, 2)
         })
     })
 
@@ -295,9 +341,10 @@ describe("Start from deployment for time increase", () => {
         })
 
         it("should emit YieldWithdraw", async() => {
-            await time.increase(86400)
-
             let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+            await time.increase(86400)
             await khyberFarm.unstake(toTransfer)
 
             res = await khyberFarm.khyberBalance(alice.address)
@@ -305,6 +352,21 @@ describe("Start from deployment for time increase", () => {
             expect(await khyberFarm.withdrawYield())
                 .to.emit(khyberFarm, "YieldWithdraw")
                 .withArgs(alice.address, res)
+        })
+
+        it("should emit MintNFT event", async() => {
+            let toTransfer = ethers.utils.parseEther("10")
+            await mockKNC.approve(khyberFarm.address, toTransfer)
+            await khyberFarm.stake(toTransfer)
+            await time.increase(86400)
+
+            await khyberFarm.withdrawYield()
+
+            toTransfer = ethers.utils.parseEther("1")
+            await khyberToken.approve(khyberFarm.address, toTransfer)
+            expect(await khyberFarm.mintNFT(alice.address, "www"))
+                .to.emit(khyberFarm, "MintNFT")
+                .withArgs(alice.address, 0)
         })
     })
 })
