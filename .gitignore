@@ -3,6 +3,7 @@
 *.log
 tmp/
 .env
+.vscode
 
 # JS related
 *.tern-port
