@@ -4,9 +4,6 @@ import { BigNumber } from "ethers";
 type DeployParams = Array<string>
 type LotteryParams = Array<string | BigNumber>
 
-/**
- * @notice KhyberFarm Kovan Network
- */
 export const mainConfig: DeployParams = [
     "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa", // Dai address
 ]

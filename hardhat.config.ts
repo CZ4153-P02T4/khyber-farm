@@ -1,7 +1,9 @@
+import { task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-web3";
 
-require('dotenv').config();
+require('dotenv').config()
+
 
 export default {
   solidity: {
@@ -14,7 +16,7 @@ export default {
     }
   },
   networks: {
-    ropsten: {
+    kovan: {
         gas: "auto",
         gasPrice: "auto",
         url: process.env.API_KEY,
