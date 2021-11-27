@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { mainConfig } from "./config";
+import { mainConfig, lottoConfig } from "./config";
 
 const nftPrice = ethers.utils.parseEther("1")
 
@@ -10,14 +10,6 @@ async function main() {
     const balance = await deployer.getBalance();
     console.log(`Account balance: ${balance.toString()}`)
 
-    /**
-     * @notice For tetsnets without Maker/DAI
-     * @dev Comment out if using a network with DAI (ie Kovan) and use/insert
-     *      DAI address in config.ts
-     */
-    // const MockDai = await ethers.getContractFactory("MockDai")
-    // const mockDai = await MockDai.deploy()
-
     const KhyberToken = await ethers.getContractFactory("KhyberToken")
     const khyberToken = await KhyberToken.deploy()
     console.log(`KhyberToken address: ${khyberToken.address}`)
@@ -25,11 +17,16 @@ async function main() {
     const KhyberCrystal = await ethers.getContractFactory("KhyberCrystal")
     const khrystal = await KhyberCrystal.deploy()
     console.log(`KhyberCrystal address: ${khrystal.address}`)
+    
+    const Lottery = await ethers.getContractFactory("Lottery");
+    const lottery = await Lottery.deploy(khrystal.address, khyberToken.address, ...lottoConfig);
+    console.log(`Lottery contract address: ${lottery.address}`);
 
     const KhyberFarm = await ethers.getContractFactory("KhyberFarm");
     const khyberFarm = await KhyberFarm.deploy(
-        ...mainConfig, khyberToken.address, khrystal.address, nftPrice
-        // mockKNC.address, khyberToken.address, khrystal.address, nftPrice
+        ...mainConfig, khyberToken.address, khrystal.address, lottery.address, nftPrice
+        //...mainConfig, khyrstalToken.address, khrystal.address, nftPrice
+        // mockDai.address, khyrstalToken.address, khrystal.address, nftPrice
         )
     console.log(`KhyberFarm address: ${khyberFarm.address}`)
     console.log(`NFT Price: ${ethers.utils.formatEther(nftPrice)} KHYBER`)
