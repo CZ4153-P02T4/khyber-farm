@@ -62,7 +62,7 @@ networks: {
 ```
 In the KhyberFarm root, run:
 ```
-npx hardhat run scripts/deployFarm.ts --network kovan
+npx hardhat run scripts/deployFarm.ts --network rinkeby
 ```
 
 
