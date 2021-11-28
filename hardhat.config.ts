@@ -11,7 +11,7 @@ export default {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
+        runs: 1000
       }
     }
   },
@@ -19,8 +19,14 @@ export default {
     kovan: {
         gas: "auto",
         gasPrice: "auto",
-        url: process.env.API_KEY,
+        url: process.env.API_KEY_KOVAN,
         accounts: [`0x${process.env.PRIVATE_KEY}`]
-    }
+    },
+    rinkeby: {
+      gas: "auto",
+      gasPrice: "auto",
+      url: process.env.API_KEY_RINKEBY,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+  },
   }
 }

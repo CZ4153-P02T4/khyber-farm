@@ -12,7 +12,7 @@ describe("Lottery Contract", () => {
 
     let lottery: Contract;
     let khrystalContract: Contract;
-    let khyrstalToken: Contract;
+    let khyberToken: Contract;
     let mockLink: Contract;
 
     beforeEach(async() => {
@@ -21,13 +21,13 @@ describe("Lottery Contract", () => {
         const KhyberToken = await ethers.getContractFactory("KhyberToken");
         const MockLink = await ethers.getContractFactory("MockERC20");
         mockLink = await MockLink.deploy("MockLink", "mLINK");
-        khyrstalToken = await KhyberToken.deploy();
+        khyberToken = await KhyberToken.deploy();
         [owner, alice, bob] = await ethers.getSigners();
 
         await mockLink.mint(owner.address, ethers.utils.parseEther("9999"));
 
         let lotteryParams = [
-            khyrstalToken.address,
+            khyberToken.address,
             mockLink.address,
             "0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9", // coor
             "0xa36085F69e2889c224210F603D836748e7dC0088", // link
@@ -95,15 +95,15 @@ describe("Lottery Contract", () => {
             let minter = await khrystalContract.MINTER_ROLE()
             await Promise.all([
                 khrystalContract.grantRole(minter, owner.address),
-                khyrstalToken.grantRole(minter, owner.address),
-                khyrstalToken.mint(owner.address, ethers.utils.parseEther("999")),
+                khyberToken.grantRole(minter, owner.address),
+                khyberToken.mint(owner.address, ethers.utils.parseEther("999")),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
-                khyrstalToken.approve(lottery.address, ethers.utils.parseEther("25")),
+                khyberToken.approve(lottery.address, ethers.utils.parseEther("25")),
                 lottery.addToLotteryPool(owner.address, ethers.utils.parseEther("25"))
             ])
         })
@@ -135,14 +135,14 @@ describe("Lottery Contract", () => {
         })
 
         it("should payout bob", async() => {
-            let res = await khyrstalToken.balanceOf(lottery.address)
+            let res = await khyberToken.balanceOf(lottery.address)
             expect(res)    
                 .to.eq(ethers.utils.parseEther("25"))
             await lottery.testGetWinningNumber()
             await lottery.connect(bob).claimLottoWinnings()
-            expect(await khyrstalToken.balanceOf(lottery.address))
+            expect(await khyberToken.balanceOf(lottery.address))
                 .to.eq(0)
-            expect(await khyrstalToken.balanceOf(bob.address))
+            expect(await khyberToken.balanceOf(bob.address))
                 .to.eq(ethers.utils.parseEther("25"))
         })
 
@@ -160,15 +160,15 @@ describe("Lottery Contract", () => {
             let minter = await khrystalContract.MINTER_ROLE()
             await Promise.all([
                 khrystalContract.grantRole(minter, owner.address),
-                khyrstalToken.grantRole(minter, owner.address),
-                khyrstalToken.mint(owner.address, ethers.utils.parseEther("999")),
+                khyberToken.grantRole(minter, owner.address),
+                khyberToken.mint(owner.address, ethers.utils.parseEther("999")),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
                 khrystalContract.safeMint(alice.address),
                 khrystalContract.safeMint(bob.address),
-                khyrstalToken.approve(lottery.address, ethers.utils.parseEther("25")),
+                khyberToken.approve(lottery.address, ethers.utils.parseEther("25")),
                 lottery.addToLotteryPool(owner.address, ethers.utils.parseEther("25")),
             ])
         })
@@ -195,7 +195,7 @@ describe("Lottery Contract", () => {
 
         it("should emit AddKhyber", async() => {
             let amount = ethers.utils.parseEther("10")
-            await khyrstalToken.approve(lottery.address, amount)
+            await khyberToken.approve(lottery.address, amount)
             expect(await lottery.addToLotteryPool(owner.address, amount))
                 .to.emit(lottery, "AddKhyber")
                 .withArgs(owner.address, amount)

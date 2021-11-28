@@ -11,13 +11,13 @@ contract KhyberFarm {
     mapping(address => uint256) public stakingBalance;
     mapping(address => bool) public isStaking;
     mapping(address => uint256) public startTime;
-    mapping(address => uint256) public khyrstalBalance;
+    mapping(address => uint256) public khyberBalance;
     mapping(string => uint256) public nftCount;    
 
     string public name = "Khyber Farm";
 
     IERC20 public daiToken;
-    KhyberToken public khyrstalToken;
+    KhyberToken public khyberToken;
     KhyberCrystal public khrystal;
     Lottery public lottery;
 
@@ -30,13 +30,13 @@ contract KhyberFarm {
 
     constructor(
         IERC20 _daiToken,
-        KhyberToken _khyrstalToken,
+        KhyberToken _khyberToken,
         KhyberCrystal _khrystal,
         Lottery _lottery,
         uint256 _nftPrice
         ) {
             daiToken = _daiToken;
-            khyrstalToken = _khyrstalToken;
+            khyberToken = _khyberToken;
             khrystal = _khrystal;
             lottery = _lottery;
             nftPrice = _nftPrice;
@@ -50,7 +50,7 @@ contract KhyberFarm {
 
         if(isStaking[msg.sender] == true){
             uint256 toTransfer = calculateYieldTotal(msg.sender);
-            khyrstalBalance[msg.sender] += toTransfer;
+            khyberBalance[msg.sender] += toTransfer;
         }
 
         daiToken.transferFrom(msg.sender, address(this), amount);
@@ -72,7 +72,7 @@ contract KhyberFarm {
         amount = 0;
         stakingBalance[msg.sender] -= balTransfer;
         daiToken.transfer(msg.sender, balTransfer);
-        khyrstalBalance[msg.sender] += yieldTransfer;
+        khyberBalance[msg.sender] += yieldTransfer;
         if(stakingBalance[msg.sender] == 0){
             isStaking[msg.sender] = false;
         }
@@ -98,24 +98,24 @@ contract KhyberFarm {
 
         require(
             toTransfer > 0 ||
-            khyrstalBalance[msg.sender] > 0,
+            khyberBalance[msg.sender] > 0,
             "Nothing to withdraw"
             );
             
-        if(khyrstalBalance[msg.sender] != 0){
-            uint256 oldBalance = khyrstalBalance[msg.sender];
-            khyrstalBalance[msg.sender] = 0;
+        if(khyberBalance[msg.sender] != 0){
+            uint256 oldBalance = khyberBalance[msg.sender];
+            khyberBalance[msg.sender] = 0;
             toTransfer += oldBalance;
         }
 
         startTime[msg.sender] = block.timestamp;
-        khyrstalToken.mint(msg.sender, toTransfer);
+        khyberToken.mint(msg.sender, toTransfer);
         emit YieldWithdraw(msg.sender, toTransfer);
     } 
 
     function mintNFT(address user, string memory tokenURI) public {
         require(
-            khyrstalToken.balanceOf(msg.sender) >= nftPrice, 
+            khyberToken.balanceOf(msg.sender) >= nftPrice, 
             "Not enough KHYBER"
         );
         lottery.addToLotteryPool(msg.sender, nftPrice);

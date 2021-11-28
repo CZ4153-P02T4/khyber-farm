@@ -16,7 +16,7 @@ contract MockLotteryFunctions is Ownable, VRFConsumerBase {
     bytes32 internal keyHash;
 
     KhyberCrystal public khrystal;
-    KhyberToken public khyrstalToken;
+    KhyberToken public khyberToken;
     IERC20 public linkToken;
     
     // lotteryCount => winningNumber
@@ -32,7 +32,7 @@ contract MockLotteryFunctions is Ownable, VRFConsumerBase {
 
     constructor(
         KhyberCrystal _khrystal,
-        KhyberToken _khyrstalToken,
+        KhyberToken _khyberToken,
         IERC20 _linkToken,
         address _coorAddress,
         address _linkAddress,
@@ -43,7 +43,7 @@ contract MockLotteryFunctions is Ownable, VRFConsumerBase {
             _linkAddress
         ) {
         khrystal = _khrystal;
-        khyrstalToken = _khyrstalToken;
+        khyberToken = _khyberToken;
         linkToken = _linkToken;
         fee = _fee;
         keyHash = _keyHash;
@@ -68,11 +68,11 @@ contract MockLotteryFunctions is Ownable, VRFConsumerBase {
         emit NumberReceived(_requestId, winningNum);
     }
 
-    function addToLotteryPool(address from, uint256 khrystal) public {
-        require(khrystal > 0, "Cannot add zero");
-        lotteryPool += khrystal;
-        khyrstalToken.transferFrom(from, address(this), khrystal);
-        emit AddKhyber(msg.sender, khrystal);
+    function addToLotteryPool(address from, uint256 khyber) public {
+        require(khyber > 0, "Cannot add zero");
+        lotteryPool += khyber;
+        khyberToken.transferFrom(from, address(this), khyber);
+        emit AddKhyber(msg.sender, khyber);
     }
 
     function validateWinner(
@@ -97,7 +97,7 @@ contract MockLotteryFunctions is Ownable, VRFConsumerBase {
             );
         uint256 toTransfer = lotteryPool;
         lotteryPool = 0;
-        khyrstalToken.transfer(msg.sender, toTransfer);
+        khyberToken.transfer(msg.sender, toTransfer);
         emit LotteryClaim(msg.sender, toTransfer);
     }
 
