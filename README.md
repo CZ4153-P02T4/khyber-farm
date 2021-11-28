@@ -33,7 +33,7 @@ This dApp accepts DAI as its staking token; therefore, you'll need to acquire Ko
 * Kovan LINK
     * https://kovan.chain.link/
 
-The Hardhat configuration file and scripts have been set up to deploy on the Kovan testnet. Use the .env_sample as a template for the requisite API_KEY and PRIVATE_KEY. Infura and Alchemy offer free API access to testnets and mainnet. Once you have an API endpoint and your private key from MetaMask, create a dotenv file within the PmknFarm root:
+The Hardhat configuration file and scripts have been set up to deploy on the Kovan testnet. Use the .env_sample as a template for the requisite API_KEY and PRIVATE_KEY. Infura and Alchemy offer free API access to testnets and mainnet. Once you have an API endpoint and your private key from MetaMask, create a dotenv file within the KhyberFarm root:
 
 ```
 touch .env
