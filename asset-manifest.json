@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/khyber-farm/static/css/main.e701879d.chunk.css",
+    "main.js": "/khyber-farm/static/js/main.807786ba.chunk.js",
+    "main.js.map": "/khyber-farm/static/js/main.807786ba.chunk.js.map",
+    "runtime-main.js": "/khyber-farm/static/js/runtime-main.41eec5f4.js",
+    "runtime-main.js.map": "/khyber-farm/static/js/runtime-main.41eec5f4.js.map",
+    "static/js/2.e9144e6a.chunk.js": "/khyber-farm/static/js/2.e9144e6a.chunk.js",
+    "static/js/2.e9144e6a.chunk.js.map": "/khyber-farm/static/js/2.e9144e6a.chunk.js.map",
+    "static/js/3.305bce3e.chunk.js": "/khyber-farm/static/js/3.305bce3e.chunk.js",
+    "static/js/3.305bce3e.chunk.js.map": "/khyber-farm/static/js/3.305bce3e.chunk.js.map",
+    "index.html": "/khyber-farm/index.html",
+    "static/css/main.e701879d.chunk.css.map": "/khyber-farm/static/css/main.e701879d.chunk.css.map",
+    "static/js/2.e9144e6a.chunk.js.LICENSE.txt": "/khyber-farm/static/js/2.e9144e6a.chunk.js.LICENSE.txt",
+    "static/media/Mark_Dai.cac848e2.svg": "/khyber-farm/static/media/Mark_Dai.cac848e2.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.41eec5f4.js",
+    "static/js/2.e9144e6a.chunk.js",
+    "static/css/main.e701879d.chunk.css",
+    "static/js/main.807786ba.chunk.js"
+  ]
+}
