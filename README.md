@@ -1,6 +1,6 @@
-# Pmkn Farm
+# Khyber Farm
 
-<img width="1367" alt="Screen Shot 2021-06-22 at 12 27 31 PM" src="">
+![image](https://user-images.githubusercontent.com/22881005/143726112-7a98f544-0b58-45ee-9084-79d0e6830c62.png)
 
 This repository provides a DAI staking mechanism; whereby, the user receives KhyberToken as a reward for staking DAI in the contract. Furthermore, the user can purchase a KHRYSTAL NFT through the NFT factory named Khyber Crystal. The KhyberTokens are sent to a lottery pool inside the Lottery contract. Finally, each NFT includes a tokenId which acts as a lottery ticket. The lottery feature uses Chainlink's VRF to provide a verifiably random number. The winner receives the contents of the lottery pool. 
 
