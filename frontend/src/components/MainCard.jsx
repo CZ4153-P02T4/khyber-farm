@@ -4,8 +4,6 @@ import { ethers } from "ethers";
 
 import StakeBox from "./StakeBox"
 import ClaimBox from "./ClaimBox"
-import NFTBox from "./NFTBox"
-import LotteryBox from "./LotteryBox"
 
 import { useUser } from "../context/UserContext"
 

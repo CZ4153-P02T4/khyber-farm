@@ -7,7 +7,7 @@ type LotteryParams = Array<string | BigNumber>
 export const mainConfig: DeployParams = [
     // "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa", // Dai kovan address
     // "0x95b58a6bff3d14b7db2f5cb5f0ad413dc2940658", // Dai rinkeby address
-    "0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8", // TestnetDai  rinkeby address
+    "0xc3dbf84Abb494ce5199D5d4D815b10EC29529ff8", // TestnetDai  rinkeby address
 ]
 
 //https://docs.chain.link/docs/vrf-contracts/

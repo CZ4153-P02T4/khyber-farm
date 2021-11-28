@@ -98,7 +98,7 @@ export default function LotteryModal() {
     const {
         provider,
         khyberFarmContract,
-        KhyberTokenContract,
+        khyberTokenContract,
         lotteryContract,
         setIsNFTOpen
     } = useContract();
@@ -112,7 +112,7 @@ export default function LotteryModal() {
     const mintKhrystal = async() => {
         try {
             let signer = provider.getSigner()
-            let tx = await KhyberTokenContract.connect(signer).approve(
+            let tx = await khyberTokenContract.connect(signer).approve(
                 lotteryContract.address, ethers.utils.parseEther("1")
                 )
             provider.waitForTransaction(tx.hash)

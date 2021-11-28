@@ -17,28 +17,33 @@ async function main() {
     const balance = await deployer.getBalance();
     console.log(`Account balance: ${balance.toString()}`)
 
-    // gasPrice = 40000000;
+    // gasPrice = 1000000000000;
+    // gasPrice = 250000;
 
     const KhyberToken = await ethers.getContractFactory("KhyberToken")
+    // const khyberToken = await KhyberToken.deploy({gasPrice: gasPrice})
     const khyberToken = await KhyberToken.deploy()
     outputData["KhyberToken address"] = khyberToken.address
     console.log(`KhyberToken address: ${khyberToken.address}`)
 
     const KhyberCrystal = await ethers.getContractFactory("KhyberCrystal")
+    // const khrystal = await KhyberCrystal.deploy({gasPrice: gasPrice})
     const khrystal = await KhyberCrystal.deploy()
     outputData["KhyberCrystal address"] = khrystal.address
     console.log(`KhyberCrystal address: ${khrystal.address}`)
     
     const Lottery = await ethers.getContractFactory("Lottery");
+    // const lottery = await Lottery.deploy(khrystal.address, khyberToken.address, ...lottoConfig, {gasPrice: gasPrice});
     const lottery = await Lottery.deploy(khrystal.address, khyberToken.address, ...lottoConfig);
     outputData["Lottery contract address"] = lottery.address
     console.log(`Lottery contract address: ${lottery.address}`);
 
     const KhyberFarm = await ethers.getContractFactory("KhyberFarm");
     const khyberFarm = await KhyberFarm.deploy(
-        ...mainConfig, khyberToken.address, khrystal.address, lottery.address, nftPrice
+        ...mainConfig, khyberToken.address, khrystal.address, lottery.address, nftPrice,
         //...mainConfig, khyberToken.address, khrystal.address, nftPrice
         // mockDai.address, khyberToken.address, khrystal.address, nftPrice
+        // {gasPrice: gasPrice}
         )
     outputData["KhyberFarm address"] = khyberFarm.address
     console.log(`KhyberFarm address: ${khyberFarm.address}`)

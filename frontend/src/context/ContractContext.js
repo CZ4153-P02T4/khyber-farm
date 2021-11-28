@@ -11,7 +11,7 @@ export const ContractContext = React.createContext({
     setDaiContract: () => {},
     linkContract: {},
     setLinkContract: () => {},
-    KhyberTokenContract: {},
+    khyberTokenContract: {},
     setKhyberTokenContract: () => {},
     khyberFarmContract: {},
     setKhyberFarmContract: () => {},

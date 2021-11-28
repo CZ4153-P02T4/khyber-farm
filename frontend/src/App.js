@@ -120,13 +120,13 @@ function App() {
     }, [setProvider])
 
     const loadDaiContract = useCallback(async(_provider) => {
-        let daiAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa" 
+        let daiAddress = "0xc3dbf84Abb494ce5199D5d4D815b10EC29529ff8" 
         let contract = new ethers.Contract(daiAddress, ERC20.abi, _provider)
         setDaiContract(contract)
     }, [setDaiContract])
     
     const loadLinkContract = useCallback(async(_provider) => {
-        let linkAddress = "0xa36085F69e2889c224210F603D836748e7dC0088"
+        let linkAddress = "0x01BE23585060835E02B77ef475b0Cc51aA1e0709"
         let contract = new ethers.Contract(linkAddress, ERC20.abi, _provider)
         setLinkContract(contract)
     }, [setLinkContract])
@@ -243,7 +243,7 @@ function App() {
     		await loadUser().then(res => {
     			setUserAddress(res)
     			loadEthBalance(res)
-    			// loadDaiBalance(res)
+    			loadDaiBalance(res)
     			loadKhyberBalance(res)
     			loadStakingBalance(res)
     			loadKhyberYield(res)
@@ -257,7 +257,7 @@ function App() {
         loadUser, 
         loadNetwork, 
         loadEthBalance, 
-        // loadDaiBalance,
+        loadDaiBalance,
         loadKhyberBalance,
         loadStakingBalance,
         setUserAddress,
@@ -304,7 +304,7 @@ function App() {
     const contractStateDidMount = useCallback(async() => {
         await loadOwner()
         await loadLotteryPool()
-        // await loadLinkBalance()
+        await loadLinkBalance()
         await loadLotteryCount()
             .then(async(res) => {
                 await loadWinningNumber(res)
@@ -312,7 +312,7 @@ function App() {
         }, [
         loadOwner, 
         loadLotteryPool, 
-        // loadLinkBalance, 
+        loadLinkBalance, 
         loadLotteryCount, 
         loadWinningNumber, 
     ])

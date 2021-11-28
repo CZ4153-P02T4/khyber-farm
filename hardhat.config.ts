@@ -27,6 +27,12 @@ export default {
       gasPrice: "auto",
       url: process.env.API_KEY_RINKEBY,
       accounts: [`0x${process.env.PRIVATE_KEY}`]
-  },
+    },
+    matic: {
+      gas: "auto",
+      gasPrice: "auto",
+      url: process.env.API_KEY_MUMBAI,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    },
   }
 }
