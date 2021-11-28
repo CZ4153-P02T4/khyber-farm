@@ -13,6 +13,8 @@ const Container = styled.div`
 const Box = styled.div`
     height: 25rem;
     width: 22rem;
+    background: linear-gradient(45deg, #5f3c74, green);
+    padding: .4rem;
     background-color: #2b2e35;
     display: flex;
     flex-direction: column;
@@ -20,18 +22,10 @@ const Box = styled.div`
     border: .3rem solid black;
 `;
 
-const Title = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.5rem;
-    color: white;
-`
-
 const Banner = styled.div`
     width: 100%;
     height: 25%;
-    background: linear-gradient(45deg, #5f3c74, green);
+    background: rgba(24,24,24,0.95);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,7 +34,7 @@ const Banner = styled.div`
 const BodyDiv = styled.div`
     width: 100%;
     background-color: black;
-    color: #7A3803;
+    color: white;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -56,7 +50,7 @@ const TopBanner = styled.div`
     align-self: center;
     font-size: 1.65rem;
     font-weight: bold;
-    color: black;
+    color: white;
     text-shadow: .03rem .03rem gray;
 `;
 
@@ -69,10 +63,10 @@ const BottomBanner = styled.div`
 const Circle = styled.button`
     width: 12rem;
     height: 4rem;
-    border: .05rem dashed white;
     border-radius: 1rem;
+    border: none;
     background-color: transparent;
-    color: black;
+    color: white;
     font-size: 1rem;
     font-weight: bold;
     display: flex;
@@ -89,14 +83,11 @@ export default function LotteryBox() {
     
     return(
         <Container>
-            <Title>
-                Lottery
-            </Title>
         <Box>
             <Banner>
                 <TopBanner>
                     <div>
-                        Khrystal-O'-Lottery
+                        Khrystal Lottery
                     </div>
                 </TopBanner>
             </Banner>

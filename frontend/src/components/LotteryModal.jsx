@@ -4,16 +4,17 @@ import styled from "styled-components";
 import { useUser } from "../context/UserContext"
 import { useContract } from "../context/ContractContext"
 
+import LotteryBox from "./LotteryBox";
+
 const ModalStyle ={
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#2b2e35',
+    backgroundColor: 'black',
     borderRadius: '2rem',
-    border: '.3rem solid black',
-    height: '24rem',
-    width: '25rem',
+    height: '50%',
+    width: '60%',
     zIndex: 1000
 }
 
@@ -43,18 +44,22 @@ const H1 = styled.h1`
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
+    position: fixed;
+    font-size: 4rem;
+    top:-6.4rem;
+    left: 5%;
 `;
 
 const DivBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 10rem;
+    height: 20rem;
     width: 18rem;
+    margin: 3.5rem 0 1rem 0;
     align-items: center;
     background-color: transparent;
-    border: .1rem solid black;
-    border-radius: 1rem;
+    border: .1rem solid grey;
     color: white;
 `;
 
@@ -65,14 +70,21 @@ const Li = styled.li`
 const ClaimButton = styled.button`
     background: linear-gradient(45deg, #5f3c74, green);
     font-size: 1.5rem;
-    width: 12rem;
+    color: white;
+    width: 160%;
     height: 4rem;
+    margin-left: -30%;
     cursor: pointer;
 `;
 
 const BottomDiv = styled.div`
     height: 20%;
 `;
+
+const Horizontal = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 export default function LotteryModal() {
 
@@ -113,8 +125,10 @@ return(
     <>
         <div style={OverlayStyle} onClick={closeLotteryModal}/>
         <div style={ModalStyle}>
+            <H1>Lottery</H1>
+            <Horizontal>
+            <LotteryBox/>
             <Container>
-                    <H1>Lottery</H1>
                     <DivBody>
                         <ul>
                             <Li>
@@ -137,6 +151,7 @@ return(
                         </ClaimButton>
                         </BottomDiv>
             </Container>
+            </Horizontal>
         </div>
     </>
     )

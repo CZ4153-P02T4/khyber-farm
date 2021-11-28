@@ -5,16 +5,17 @@ import { ethers } from "ethers"
 import { useUser } from "../context/UserContext"
 import { useContract } from "../context/ContractContext"
 
+import NFTBox from "./NFTBox";
+
 const ModalStyle ={
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#2b2e35',
+    backgroundColor: 'black',
     borderRadius: '2rem',
-    border: '.3rem solid black',
-    height: '24rem',
-    width: '25rem',
+    height: '50%',
+    width: '60%',
     zIndex: 1000
 }
 
@@ -44,13 +45,19 @@ const H1 = styled.h1`
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
+    position: fixed;
+    font-size: 4rem;
+    top:-6.4rem;
+    left: 5%;
 `;
 
 const MintButton = styled.button`
     background: linear-gradient(45deg, #5f3c74, #ED7014);
     font-size: 1.5rem;
-    width: 12rem;
+    color: white;
+    width: 150%;
     height: 4rem;
+    margin-left: -25%;
     cursor: pointer;
 `;
 
@@ -58,8 +65,9 @@ const DivBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 10rem;
+    height: 20rem;
     width: 18rem;
+    margin: 3rem 0 2rem 0;
     align-items: center;
     background-color: transparent;
     border: .1rem solid black;
@@ -68,13 +76,18 @@ const DivBody = styled.div`
 `;
 
 const Img = styled.img`
-    height: 8rem;
-    width: 8rem;
+    height: 20rem;
+    width: 20rem;
 `;
 
 const BottomDiv = styled.div`
     height: 20%;
 `;
+
+const Horizontal = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 export default function LotteryModal() {
 
@@ -94,7 +107,7 @@ export default function LotteryModal() {
         setIsNFTOpen(false)
     }
 
-    const URI = "https://gateway.pinata.cloud/ipfs/QmbJ9d3mp88MK3y4djxU8PsG1m8773wbmPA4JHE6mVcTc7"
+    const URI = "https://media.giphy.com/media/aaoR7auCe3Hj0Np9M4/giphy.gif"
 
     const mintKhrystal = async() => {
         try {
@@ -117,18 +130,20 @@ return(
     <>
         <div style={OverlayStyle} onClick={closeModal}/>
         <div style={ModalStyle}>
-            <Container>
-                    <H1>Mint NFT</H1>
+        <H1>Mint NFT</H1>
+            <Horizontal>
+                <NFTBox/>
+                <Container>
                     <DivBody>
                         <Img src={URI} alt="display image"/>
                     </DivBody>
                     <BottomDiv>
                         <MintButton onClick={mintKhrystal}>
-                            Mint KHRYSTAL NFT
+                            MINT KHRYSTAL NFT
                         </MintButton>
                     </BottomDiv>
-                        
-            </Container>
+                </Container>
+            </Horizontal>
         </div>
     </>
     )

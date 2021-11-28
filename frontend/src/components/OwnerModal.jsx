@@ -9,9 +9,8 @@ const ModalStyle ={
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#2b2e35',
+    backgroundColor: 'black',
     borderRadius: '2rem',
-    border: '.3rem solid black',
     height: '24rem',
     width: '25rem',
     zIndex: 1000
@@ -43,9 +42,10 @@ const H1 = styled.h1`
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    position: fixed;
+    font-size: 4rem;
+    top:-6.4rem;
+    left: 5%;
 `;
 
 const DivBody = styled.div`
@@ -56,7 +56,6 @@ const DivBody = styled.div`
     width: 18rem;
     align-items: center;
     background-color: transparent;
-    border: .1rem solid black;
     border-radius: 1rem;
     color: white;
 `;
@@ -64,7 +63,7 @@ const DivBody = styled.div`
 const Input = styled.input`
     width: 5rem;
     height: 1.5rem;
-    margin-top: .5rem;
+    margin-top: 4rem;
 `;
 
 const LinkButton = styled.button`
@@ -78,9 +77,11 @@ const BottomDiv = styled.div`
 `;
 
 const LotteryButton = styled.button`
-    width: 12rem;
+    width: 20rem;
     height: 4rem;
+    font-size: 1.5rem;
     background: linear-gradient(45deg, #5f3c74, white); 
+    color: white;
     cursor: pointer;
 `;
  
@@ -139,10 +140,8 @@ return(
     <>
         <div style={OverlayStyle} onClick={closeModal}/>
         <div style={ModalStyle}>
+            <H1>Owner</H1>
             <Container>
-                <H1>
-                    Owner
-                </H1>
                 <DivBody>
                     <div>
                         Link Balance: {linkBalance ? linkBalance : "-"}

@@ -8,11 +8,10 @@ import { useContract } from "../context/ContractContext"
 const MetaContainer = styled.div`
     height: 6rem;
     width: 100%;
-    background-color: #2b2e35;
+    background-color: rgb(30, 31, 38);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: .04rem solid green;
 `;
 
 const Container = styled.div`
@@ -22,7 +21,8 @@ const Container = styled.div`
 
 const Title = styled.div`
     font-size: 1.8rem;
-    color: #ED7014;
+    color: white;
+    font-weight: bold;
     text-shadow: .03rem .03rem green;
     margin-left: 2rem;
 `;
@@ -42,7 +42,9 @@ const AccountWrapper = styled.div`
     height: 2.1rem;
     width: 16rem;
     font-size: 1.2rem;
-    background: linear-gradient(45deg, #ED7014, #6e3003);
+    background: rgb(44, 48, 58);
+    color: white;
+    padding-left: 1rem;
     margin-right: 2rem;
     display: flex;
     justify-content: space-between;
@@ -57,7 +59,7 @@ const Account = styled(AccountWrapper)`
     display: flex;
     justify-content: center;
     margin-right: 0;
-    color: #7A3803;
+    color: white;
     background: black;
 `;
 
@@ -69,21 +71,45 @@ const Button = styled.button`
     border-radius: .8rem;
     cursor: pointer;
     outline: none;
+    color: white;
+    background: transparent;
+    border: none;
+
+    ::after {
+        content: '';
+        display: block;
+        position: relative;
+        top: 0.5rem;
+        left: 25%;
+        width: 0%;
+        height: .5rem;
+        border-radius: 1rem;
+        transition: 120ms;
+      }
+
     :hover {
-        background:#5f3c74;
+        ::after {
+            width: 50%;
+        }
     }
 `;
 
 const LotteryButton = styled(Button)`
-    background: linear-gradient(45deg, #5f3c74, green);
+    ::after {
+        background: linear-gradient(45deg, #5f3c74, green);
+    }
 `;
 
 const NFTButton = styled(Button)`
-    background: linear-gradient(45deg, #5f3c74, #ED7014);
+    ::after {
+        background: linear-gradient(45deg, #5f3c74, #ED7014);
+    }
 `;
 
 const OwnerButton = styled(Button)`
-    background: linear-gradient(45deg, #5f3c74, white);
+    ::after {
+        background: linear-gradient(45deg, #5f3c74, white);
+    }
 `;
 
 const Eth = styled.div`
@@ -189,6 +215,8 @@ export default function NavBar() {
                         <LotteryButton onClick={handleLottery}>
                             Lottery
                         </LotteryButton>
+                    </SubContainer>
+                    <SubContainer>
                         <Network>
                             { networkId ? networkId.charAt(0).toUpperCase() + networkId.slice(1) : "N/A" }
                         </Network>

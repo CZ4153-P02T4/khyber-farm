@@ -15,11 +15,12 @@ const Container = styled.div`
 const Box = styled.div`
     height: 15rem;
     width: 22rem;
-    background-color: #2b2e35;
+    background: #2c303a;
+    border-radius: 10px;
+    padding: .4rem;
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
-    border: .3rem solid black;
 `;
 
 const Title = styled.div`
@@ -33,7 +34,8 @@ const Title = styled.div`
 const Banner = styled.div`
     width: 100%;
     height: 33%;
-    background: linear-gradient(45deg, #2d1b38, #5f3c74);
+    color: white;
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,10 +44,15 @@ const Banner = styled.div`
 const ClaimButton = styled.button`
     height: 5rem;
     width: 100%;
-    background-color: black;
-    color: #7A3803;
+    background-color: rgb(68, 72, 87);
+    border: 3px;
+    color: white;
+    font-weight: bold;
     font-size: 1.2rem;
     cursor: pointer;
+    :hover {
+        background-color: rgb(90, 95, 115)
+    }
 `;
 
 const TopBanner = styled.div`
@@ -65,12 +72,11 @@ const BottomBanner = styled.div`
 const Circle = styled.button`
     width: 12rem;
     height: 4rem;
-    border: .05rem dashed #ED7014;
+    border: none;
     border-radius: 1rem;
     background-color: transparent;
-    color: yellow;
+    color: white;
     font-size: 1rem;
-    font-weight: bold;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,18 +118,16 @@ export default function StakeBox() {
                     </div>
                 </TopBanner>
             </Banner>
+                <BottomBanner>
+                    <Circle>
+                        <span>Rate: <b>{ stakingBalance ? ethers.utils.formatEther(stakingBalance) : "0" } / day</b></span>
+                    </Circle>
+                </BottomBanner>
             <div>
                 <ClaimButton onClick={withdrawYield}>
                     Claim
                 </ClaimButton>
             </div>
-            <Banner>
-                <BottomBanner>
-                    <Circle>
-                            Rate: { stakingBalance ? ethers.utils.formatEther(stakingBalance) : "0" } / day
-                    </Circle>
-                </BottomBanner>
-            </Banner>
         </Box>
         </Container>
     )

@@ -11,25 +11,18 @@ const Container = styled.div`
 const Box = styled.div`
     height: 25rem;
     width: 22rem;
-    background-color: #2b2e35;
+    background: linear-gradient(45deg, #5f3c74, #ED7014);
+    padding: .4rem;
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
     border: .3rem solid black;
 `;
 
-const Title = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.5rem;
-    color: white;
-`
-
 const Banner = styled.div`
     width: 100%;
     height: 25%;
-    background: linear-gradient(45deg, #5f3c74, #ED7014);
+    background-color: rgba(24,24,24,1);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,7 +31,7 @@ const Banner = styled.div`
 const BodyDiv = styled.div`
     width: 100%;
     background-color: black;
-    color: #7A3803;
+    color: white;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -54,14 +47,15 @@ const TopBanner = styled.div`
     align-self: center;
     font-size: 1.65rem;
     font-weight: bold;
-    color: black;
-    text-shadow: .03rem .03rem gray;
+    color: white;
 `;
 
 const BottomBanner = styled.div`
-    align-self: center;
     font-size: 1.4rem;
     font-weight: bold;
+    display: flex;
+    align-self: center;
+    align-items: center;
 `;
 
 const Circle = styled.button`
@@ -70,22 +64,14 @@ const Circle = styled.button`
     border: .05rem dashed white;
     border-radius: 1rem;
     background-color: transparent;
-    color: black;
-    font-size: 1rem;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border: none;
+    color: white;
 `;
 
 export default function NFTBox() {
     
     return(
         <Container>
-            <Title>
-                Mint NFTs
-            </Title>
         <Box>
             <Banner>
                 <TopBanner>

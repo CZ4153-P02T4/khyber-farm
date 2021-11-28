@@ -16,11 +16,12 @@ const Container = styled.div`
 const Box = styled.div`
     height: 15rem;
     width: 22rem;
-    background-color: #2b2e35;
+    background: #2c303a;
+    border-radius: 10px;
+    padding: .4rem;
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
-    border: .3rem solid black;
 `;
 
 const Title = styled.div`
@@ -40,7 +41,8 @@ const Img = styled.img`
 const Banner = styled.div`
     width: 100%;
     height: 33%;
-    background: linear-gradient(45deg, #ED7014, #6e3003);
+    color: white;
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,15 +56,21 @@ const StakeInput = styled.input`
 const StakeButton = styled.button`
     height: 3rem;
     width: 50%;
-    background-color: black;
-    color: #7A3803;
+    background-color: rgb(68, 72, 87);
+    border: 3px;
+    color: white;
+    font-weight: 300;
     font-size: 1.2rem;
     cursor: pointer;
+    :hover {
+        background-color: rgb(90, 95, 115)
+    }
 `;
 
 const AlignInput = styled.div`
     display: flex;
     align-items: center;
+    background-color: rgba(24,24,24,1);
 `;
 
 const TopBanner = styled.div`
@@ -74,22 +82,22 @@ const TopBanner = styled.div`
 const BottomBanner = styled.div`
     display: flex;
     justify-content: space-around;
+    background: #2c303a;
     font-size: 1rem;
     font-weight: bold;
 `;
 
-const Circle = styled.button`
+const StakeStatus = styled.button`
     width: 7rem;
-    height: 3.7rem;
+    height: 4.3rem;
     font-size: 1rem;
-    font-weight: bold;
     background-color: transparent;
-    border: .05rem dashed yellow;
-    border-radius: 1rem;
+    border: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: white;
 `;
 
 export default function StakeBox() {
@@ -161,33 +169,33 @@ export default function StakeBox() {
                 <AlignInput>
                     <StakeInput 
                         onChange={handleTransfer} 
-                        placeholder="Input Amount"
+                        placeholder="0 DAI"
                     />
                 </AlignInput>
-                <div>
+                <AlignInput>
                     <StakeButton onClick={stake}>
                         Stake
                     </StakeButton>
                     <StakeButton onClick={unstake}>
                         Unstake
                     </StakeButton>
-                </div>
+                </AlignInput>
                 <Banner>
                     <BottomBanner>
                     </BottomBanner>
                     <BottomBanner>
-                        <Circle>
-                            Unstaked:
-                            <div>
+                        <StakeStatus>
+                            DAI Balance:
+                            <b>
                                 { daiBalance ? ethers.utils.formatEther(daiBalance) : "0" }
-                            </div>
-                        </Circle>
-                        <Circle>
+                            </b>
+                        </StakeStatus>
+                        <StakeStatus>
                             Staked:
-                            <div>
+                            <b>
                                 { stakingBalance ? ethers.utils.formatEther(stakingBalance) : "0" }
-                            </div>
-                        </Circle>
+                            </b>
+                        </StakeStatus>
                     </BottomBanner>
                 </Banner>
             </Box>

@@ -17,13 +17,10 @@ const Container = styled.div`
 const Card = styled.div`
     height: 60rem;
     width: 60rem;
-    background-color: #5f5d5d;
     margin-top: 3rem;
-    border-radius: .3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: .3rem solid black;
 `;
 
 const CardBanner = styled.div`
@@ -31,7 +28,7 @@ const CardBanner = styled.div`
     height: 3rem;
     background-color: #2b2e35;
     margin-top: 2rem;
-    border: .3rem solid black;
+    border: .1rem solid black;
     border-radius: 1.5rem;
     display: flex;
     justify-content: center;
@@ -54,17 +51,13 @@ export default function MainCard() {
     return(
         <Container>
             <Card>
-                <CardBanner>
-                    KHYBER Balance: {khyberBalance ? Number.parseFloat(ethers.utils.formatEther(khyberBalance)).toFixed(3).toString() : "0"}
-                </CardBanner>
                 <AlignBox>
                     <StakeBox />
                     <ClaimBox />
                 </AlignBox>
-                <AlignBox>
-                    <NFTBox />
-                    <LotteryBox />
-                </AlignBox>
+                <CardBanner>
+                    KHYBER Balance: {khyberBalance ? Number.parseFloat(ethers.utils.formatEther(khyberBalance)).toFixed(3).toString() : "0"}
+                </CardBanner>
             </Card>
         </Container>
     )

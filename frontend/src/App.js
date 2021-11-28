@@ -59,7 +59,7 @@ function App() {
     const [provider, setProvider] = useState({})
     const [daiContract, setDaiContract] = useState({})
     const [linkContract, setLinkContract] = useState({})
-    const [KhyberTokenContract, setKhyberTokenContract] = useState({})
+    const [khyberTokenContract, setKhyberTokenContract] = useState({})
     const [khyberFarmContract, setKhyberFarmContract] = useState({})
     const [khrystalContract, setKhrystalContract] = useState({})
     const [lotteryContract, setLotteryContract] = useState({})
@@ -83,7 +83,7 @@ function App() {
         setDaiContract,
         linkContract,
         setLinkContract,
-        KhyberTokenContract,
+        khyberTokenContract,
         setKhyberTokenContract,
         khyberFarmContract,
         setKhyberFarmContract,
@@ -132,25 +132,29 @@ function App() {
     }, [setLinkContract])
 
     const loadKhyberToken = useCallback(async(_provider) => {
-        let KhyberTokenAddress = KhyberToken["networks"]["42"]["address"] 
+        // let KhyberTokenAddress = KhyberToken["networks"]["42"]["address"] // kovan network id
+        let KhyberTokenAddress = KhyberToken["networks"]["4"]["address"] // rinkeby network id
         let contract = new ethers.Contract(KhyberTokenAddress, KhyberToken.abi, _provider)
         setKhyberTokenContract(contract)
     }, [setKhyberTokenContract])
 
     const loadKhyberFarmContract = useCallback(async(_provider) => {
-        let khyberFarmAddress = KhyberFarm["networks"]["42"]["address"]
+        // let khyberFarmAddress = KhyberFarm["networks"]["42"]["address"] // kovan network id
+        let khyberFarmAddress = KhyberFarm["networks"]["4"]["address"] // rinkeby network id
         let contract = new ethers.Contract(khyberFarmAddress, KhyberFarm.abi, _provider)
         setKhyberFarmContract(contract)
     }, [setKhyberFarmContract])
 
     const loadKhrystalContract = useCallback(async(_provider) => {
-        let khrystalContractAddress = KhyberCrystal["networks"]["42"]["address"]
+        // let khrystalContractAddress = KhyberCrystal["networks"]["42"]["address"] // kovan network id
+        let khrystalContractAddress = KhyberCrystal["networks"]["4"]["address"] // rinkeby network id
         let contract = new ethers.Contract(khrystalContractAddress, KhyberCrystal.abi, _provider)
         setKhrystalContract(contract)
     }, [setKhrystalContract])
 
     const loadLotteryContract = useCallback(async(_provider) => {
-        let lotteryContractAddress = Lottery["networks"]["42"]["address"]
+        // let lotteryContractAddress = Lottery["networks"]["42"]["address"] // kovan network id
+        let lotteryContractAddress = Lottery["networks"]["4"]["address"] // rinkeby network id
         console.log("Lottery: ", lotteryContractAddress)
         let contract = new ethers.Contract(lotteryContractAddress, Lottery.abi, _provider)
         setLotteryContract(contract)
@@ -208,14 +212,15 @@ function App() {
     }, [provider, setEthBalance])
 
     const loadDaiBalance = useCallback(async(user) => {
+        console.log(user);
         let balance = await daiContract.balanceOf(user)
         setDaiBalance(balance.toString())
     }, [daiContract, setDaiBalance])
 
     const loadKhyberBalance = useCallback(async(user) => {
-        let balance = await KhyberTokenContract.balanceOf(user)
+        let balance = await khyberTokenContract.balanceOf(user)
         setKhyberBalance(balance.toString())
-    }, [KhyberTokenContract, setKhyberBalance])
+    }, [khyberTokenContract, setKhyberBalance])
 
     const loadStakingBalance = useCallback(async(user) => {
         let balance = await khyberFarmContract.stakingBalance(user)
@@ -238,7 +243,7 @@ function App() {
     		await loadUser().then(res => {
     			setUserAddress(res)
     			loadEthBalance(res)
-    			loadDaiBalance(res)
+    			// loadDaiBalance(res)
     			loadKhyberBalance(res)
     			loadStakingBalance(res)
     			loadKhyberYield(res)
@@ -252,7 +257,7 @@ function App() {
         loadUser, 
         loadNetwork, 
         loadEthBalance, 
-        loadDaiBalance,
+        // loadDaiBalance,
         loadKhyberBalance,
         loadStakingBalance,
         setUserAddress,
@@ -276,9 +281,9 @@ function App() {
     }, [lotteryContract, setOwner])
 
     const loadLotteryPool = useCallback(async() => {
-        let balance = await KhyberTokenContract.balanceOf(lotteryContract.address)
+        let balance = await khyberTokenContract.balanceOf(lotteryContract.address)
         setLotteryBalance(ethers.utils.formatEther(balance))
-    }, [lotteryContract, KhyberTokenContract]) 
+    }, [lotteryContract, khyberTokenContract]) 
 
     const loadLinkBalance = useCallback(async() => {
         let balance = await linkContract.balanceOf(lotteryContract.address)
@@ -299,7 +304,7 @@ function App() {
     const contractStateDidMount = useCallback(async() => {
         await loadOwner()
         await loadLotteryPool()
-        await loadLinkBalance()
+        // await loadLinkBalance()
         await loadLotteryCount()
             .then(async(res) => {
                 await loadWinningNumber(res)
@@ -307,7 +312,7 @@ function App() {
         }, [
         loadOwner, 
         loadLotteryPool, 
-        loadLinkBalance, 
+        // loadLinkBalance, 
         loadLotteryCount, 
         loadWinningNumber, 
     ])
