@@ -95,7 +95,7 @@ export default function LotteryBox() {
             <BodyDiv>
                 <ul>
                     <Li>
-                        Each minted Khrystal-O'-Lantern NFT doubles as a lottery ticket
+                        Each minted Khyber Crystal NFT doubles as a lottery ticket
                     </Li>
                     <Li>
                         The tokenId of the KHRYSTAL NFT is your lottery ticket number
