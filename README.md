@@ -52,7 +52,7 @@ networks: {
         url: process.env.API_KEY_KOVAN,
         accounts: [`0x${process.env.PRIVATE_KEY}`]
     },
-    rinnkeby: {
+    rinkeby: {
         gas: "auto",
         gasPrice: "auto",
         url: process.env.API_KEY_RINKEBY,
