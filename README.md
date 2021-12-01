@@ -65,7 +65,7 @@ In the KhyberFarm root, run:
 npx hardhat run scripts/deployFarm.ts --network rinkeby
 ```
 
-> # Todo (for school-end wrap up)
-> [ ] add connect wallet button
-> [ ] modify contract so as to see nft on opensea
+> ## Todo (for school-end wrap up)  
+> * [ ] add connect wallet button  
+> * [ ] modify contract so as to see nft on opensea  
 
