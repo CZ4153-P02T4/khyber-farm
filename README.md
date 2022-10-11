@@ -4,6 +4,10 @@
 
 This repository provides a DAI staking mechanism; whereby, the user receives KhyberToken as a reward for staking DAI in the contract. Furthermore, the user can purchase a KHRYSTAL NFT through the NFT factory named Khyber Crystal. The KhyberTokens are sent to a lottery pool inside the Lottery contract. Finally, each NFT includes a tokenId which acts as a lottery ticket. The lottery feature uses Chainlink's VRF to provide a verifiably random number. The winner receives the contents of the lottery pool. 
 
+
+https://user-images.githubusercontent.com/22881005/195197261-72c94305-b3ae-46af-a8f9-d1eb3bfdc06b.mp4
+
+
 ## Prerequisites
 ```
 NodeJS and NPM >= 7.5.0
